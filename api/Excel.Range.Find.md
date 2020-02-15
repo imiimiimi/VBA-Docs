@@ -69,11 +69,11 @@ This example finds all cells in the range A1:A500 on worksheet one that contain 
 With Worksheets(1).Range("a1:a500") 
     Set c = .Find(2, lookin:=xlValues) 
     If Not c Is Nothing Then 
-        firstAddress = c.Address 
+        firstAddress = c.Address 'To prevent infinite loop
         Do 
             c.Value = 5 
             Set c = .FindNext(c) 
-        Loop While Not c Is Nothing
+        Loop While c.Address <> firstAddress
     End If 
 End With
 ```
